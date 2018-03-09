@@ -10,7 +10,7 @@ public class Md5Util {
         return DigestUtils.md5Hex(after);
     }
 
-//    public static void main(String[] args){
-//        System.out.println("md5:"+Md5Util.md5Encoder(Md5Util.md5Encoder("123456",""),"1q2w3e4r"));
-//    }
+    public static void main(String[] args){
+        System.out.println("md5:"+Md5Util.md5Encoder("63178386@qq.com",""));
+    }
 }

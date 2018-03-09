@@ -6,9 +6,9 @@ import com.yajima.miaosha.common.ServerResponse;
 import com.yajima.miaosha.dao.MiaoshaUserMapper;
 import com.yajima.miaosha.model.MiaoshaUser;
 import com.yajima.miaosha.vo.LoginVo;
+import com.yajima.miaosha.vo.RegisterVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 
 @Service
@@ -30,7 +30,7 @@ public class MiaoshaUserService {
         String password = loginVo.getPassword();//已经通过1次md5
         MiaoshaUser user = getById(mobile);
         if (user == null) {
-            return ServerResponse.createByErrorCodeAndMsg(ResponseCode.USER_NOT_EXSIT.getCode(), ResponseCode.USER_NOT_EXSIT.getDesc());
+            return ServerResponse.createByErrorCodeAndMsg(ResponseCode.USER_NOT_EXIST.getCode(), ResponseCode.USER_NOT_EXIST.getDesc());
         }
         String dbPassword = user.getPassword();
         //System.out.println("dbpass:"+dbPassword);
@@ -46,5 +46,28 @@ public class MiaoshaUserService {
         miaoshaUserMapper.updateByPrimaryKey(user);
         return ServerResponse.createBySuccess();
 
+    }
+
+    public ServerResponse<String> register(RegisterVo registerVo) {
+        if(registerVo==null){
+            return ServerResponse.createByErrorCodeAndMsg(ResponseCode.REGISTER_FAIL.getCode(),ResponseCode.REGISTER_FAIL.getDesc());
+        }
+        MiaoshaUser miaoshaUser = miaoshaUserMapper.selectByPrimaryKey(registerVo.getMobile());
+        if(miaoshaUser!=null){
+            return ServerResponse.createByErrorCodeAndMsg(ResponseCode.USER_EXIST.getCode(),ResponseCode.USER_EXIST.getDesc());
+        }
+        MiaoshaUser user = new MiaoshaUser();
+        user.setId(registerVo.getMobile());
+        user.setNickname(registerVo.getNickname());
+        user.setRegisterDate(new Date());
+        user.setLoginCount(1);
+        user.setLastLoginDate(new Date());
+        String salt = Md5Util.md5Encoder(registerVo.getNickname(), "").substring(0, 6);
+        user.setSalt(salt);
+        String dbPassword = Md5Util.md5Encoder(registerVo.getPassword(), salt);
+        user.setPassword(dbPassword);
+        user.setGravatar("https://www.gravatar.com/avatar/"+dbPassword);
+        miaoshaUserMapper.insert(user);
+        return ServerResponse.createBySuccess("register success");
     }
 }

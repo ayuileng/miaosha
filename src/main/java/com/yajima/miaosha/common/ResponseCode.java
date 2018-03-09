@@ -6,8 +6,10 @@ public enum ResponseCode {
     NEED_LOGIN(3,"NEED_LOGIN"),
     ILLEGAL_ARGUMENT(4,"ILLEGAL_ARGUMENT"),
     LOGIN_FAIL(5,"LOGIN_FAIL"),
-    USER_NOT_EXSIT(6,"USER_NOT_EXSIT"),
-    PASSWORD_ERROR(7,"PASSWORD_ERROR");
+    USER_NOT_EXIST(6,"USER_NOT_EXIST"),
+    PASSWORD_ERROR(7,"PASSWORD_ERROR"),
+    REGISTER_FAIL(8,"REGISTER_FAIL"),
+    USER_EXIST(9,"USER_EXIST");
     private final Integer code;
     private final String desc;
 

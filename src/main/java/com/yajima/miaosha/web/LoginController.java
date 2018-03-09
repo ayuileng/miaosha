@@ -4,6 +4,7 @@ import com.yajima.miaosha.common.ServerResponse;
 import com.yajima.miaosha.redis.RedisService;
 import com.yajima.miaosha.service.MiaoshaUserService;
 import com.yajima.miaosha.vo.LoginVo;
+import com.yajima.miaosha.vo.RegisterVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.validation.Valid;
 
 @Controller
 public class LoginController {
@@ -27,14 +30,21 @@ public class LoginController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ServerResponse<String> login(LoginVo loginVo) {
-        logger.info(loginVo.toString());
+    public ServerResponse<String> login(@Valid LoginVo loginVo) {
+        //参数校验,使用全局控制器增强来统一处理（aop）
         return miaoshaUserService.login(loginVo);
     }
 
-    @GetMapping("/login")
-    public ServerResponse<Boolean> register() {
-        return ServerResponse.createBySuccess();
+    @GetMapping("/to_register")
+    public String toRegister() {
+        return "register";
+    }
+
+    @PostMapping("/register")
+    @ResponseBody
+    public ServerResponse<String> register(RegisterVo registerVo){
+        return miaoshaUserService.register(registerVo);
+
     }
 
 
