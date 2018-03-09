@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component
 @Component
 @ConfigurationProperties(prefix = "redis")
 class RedisConfig {
-    String host;
-    int port;
-    int timeout;//秒
-    String password;
-    int poolMaxTotal;
-    int poolMaxIdle;
-    int poolMaxWait;//秒
+    String host
+    int port
+    int timeout//秒
+    String password
+    int poolMaxTotal
+    int poolMaxIdle
+    int poolMaxWait//秒
 }

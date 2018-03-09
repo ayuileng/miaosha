@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @Controller
@@ -30,9 +31,9 @@ public class LoginController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ServerResponse<String> login(@Valid LoginVo loginVo) {
+    public ServerResponse<String> login(@Valid LoginVo loginVo, HttpServletResponse response) {
         //参数校验,使用全局控制器增强来统一处理（aop）
-        return miaoshaUserService.login(loginVo);
+        return miaoshaUserService.login(loginVo,response);
     }
 
     @GetMapping("/to_register")

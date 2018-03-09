@@ -25,13 +25,6 @@ public class MiaoshaApplicationTests {
 	public void test(){
 		System.out.println(userMapper.selectByPrimaryKey(18662633693l));
 	}
-	@Test
-	public void test1(){
-		LoginVo loginVo = new LoginVo();
-		loginVo.setMobile(18662633693l);
-		loginVo.setPassword("123456");
-		System.out.println(miaoshaUserService.login(loginVo).getStatus());
-		System.out.println(miaoshaUserService.login(loginVo).isSuccess());
-	}
+
 
 }
