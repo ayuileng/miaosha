@@ -6,4 +6,12 @@ package com.yajima.miaosha.model
 class User {
     Long id
     String name
+
+    User(Long id, String name) {
+        this.id = id
+        this.name = name
+    }
+
+    User() {
+    }
 }

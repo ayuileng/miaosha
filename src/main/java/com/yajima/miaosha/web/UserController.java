@@ -1,5 +1,6 @@
 package com.yajima.miaosha.web;
 
+import com.yajima.miaosha.common.ServerResponse;
 import com.yajima.miaosha.model.User;
 import com.yajima.miaosha.redis.RedisService;
 import com.yajima.miaosha.redis.keys.UserKey;
@@ -48,4 +49,32 @@ public class UserController {
         redisService.set(UserKey.getById,""+id,user);
         return true;
     }
+//    @GetMapping("/1")
+//    public ServerResponse<String> testResponse(){
+//        return ServerResponse.createBySuccess();
+//    }
+//    @GetMapping("/2")
+//    public ServerResponse<User> testResponse1(){
+//        return ServerResponse.createBySuccess(new User(1l,"yajima"));
+//    }
+//    @GetMapping("/3")
+//    public ServerResponse<String> testResponse2(){
+//        return ServerResponse.createBySuccess("successMsg");
+//    }
+//    @GetMapping("/4")
+//    public ServerResponse<User> testResponse3(){
+//        return ServerResponse.createBySuccess("userMsg",new User(2l,"suzuki"));
+//    }
+//    @GetMapping("/5")
+//    public ServerResponse<String> testResponse4(){
+//        return ServerResponse.createByError();
+//    }
+//    @GetMapping("/6")
+//    public ServerResponse<User> testResponse5(){
+//        return ServerResponse.createByErrorMsg("userErrorMsg");
+//    }
+//    @GetMapping("/7")
+//    public ServerResponse<User> testResponse6(){
+//        return ServerResponse.createByErrorCodeAndMsg(500,"server error");
+//    }
 }
